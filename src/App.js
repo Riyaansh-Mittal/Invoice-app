@@ -30,7 +30,8 @@ function App() {
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
-  const [list, setList] = useState([]) ;
+  const [list, setList] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const handlePrint = () => {
     window.print();
@@ -38,27 +39,32 @@ function App() {
   return (
     <main className="m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl xl:max-w-4xl bg-white rounded shadow">
       {showInvoice ? (
-        <div>
-          <Header handlePrint={handlePrint} />
+        <div className="flex flex-col justify-between">
+          <div>
+            <Header handlePrint={handlePrint} />
 
-          <MainDetails name={name} address={address} />
+            <MainDetails name={name} address={address} />
 
-          <ClientDetails
-            clientName={clientName}
-            clientAddress={clientAddress}
-          />
+            <ClientDetails
+              clientName={clientName}
+              clientAddress={clientAddress}
+            />
 
-          <Dates
-            invoiceNumber={invoiceNumber}
-            invoiceDate={invoiceDate}
-            dueDate={dueDate}
-          />
+            <Dates
+              invoiceNumber={invoiceNumber}
+              invoiceDate={invoiceDate}
+              dueDate={dueDate}
+            />
 
-          <Table
-            list={list}
-          />
+            <Table
+              list={list}
+              setList={setList}
+              total={total}
+              setTotal={setTotal}
+            />
 
-          <Notes notes={notes} />
+            <Notes notes={notes} />
+          </div>
 
           <Footer
             name={name}
@@ -257,6 +263,8 @@ function App() {
                 setAmount={setAmount}
                 list={list}
                 setList={setList}
+                total={total}
+                setTotal={setTotal}
               />
             </article>
             <label htmlFor="notes">Additional Notes:</label>
