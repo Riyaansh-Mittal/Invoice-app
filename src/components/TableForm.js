@@ -21,20 +21,25 @@ const TableForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newItems = {
-      id: uuidv4(),
-      description,
-      quantity,
-      price,
-      amount,
-    };
-    setList([...list, newItems]);
-    setDescription("");
-    setQuantity("");
-    setPrice("");
-    setAmount("");
-    setList([...list, newItems]);
-    setIsEditing(false);
+
+    if (!description || !quantity || !price) {
+      alert("Please fill in all inputs")
+    } else {
+      const newItems = {
+        id: uuidv4(),
+        description,
+        quantity,
+        price,
+        amount,
+      };
+      setList([...list, newItems]);
+      setDescription("");
+      setQuantity("");
+      setPrice("");
+      setAmount("");
+      setList([...list, newItems]);
+      setIsEditing(false);
+    }
   };
 
   useEffect(() => {
@@ -44,20 +49,17 @@ const TableForm = ({
     calculateAmount(amount);
   }, [amount, setAmount, price, quantity]);
 
-  useEffect(()=>{
+  useEffect(() => {
     let rows = document.querySelectorAll(".amount");
-  let sum = 0;
+    let sum = 0;
 
-  for (let i = 0; i < rows.length; i++) {
-    if (rows[i].className === "amount") {
-      sum += isNaN(rows[i].innerHTML) ? 0 : parseInt(rows[i].innerHTML);
-      setTotal(sum);
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i].className === "amount") {
+        sum += isNaN(rows[i].innerHTML) ? 0 : parseInt(rows[i].innerHTML);
+        setTotal(sum);
+      }
     }
-    
-  }
-  })
-
-  
+  });
 
   const editRow = (id) => {
     const editingRow = list.find((row) => row.id === id);
@@ -166,7 +168,9 @@ const TableForm = ({
         ))}{" "}
       </table>
       <div>
-        <h2 className="flex items-end justify-end text-gray-800 text-4xl font-bold">Rs. {total.toLocaleString()}</h2>
+        <h2 className="flex items-end justify-end text-gray-800 text-4xl font-bold">
+          Rs. {total.toLocaleString()}
+        </h2>
       </div>
     </>
   );

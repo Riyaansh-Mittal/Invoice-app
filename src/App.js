@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Footer from "./components/Footer";
 import Notes from "./components/Notes";
 import Table from "./components/Table";
@@ -7,74 +7,96 @@ import ClientDetails from "./components/ClientDetails";
 import Dates from "./components/Dates";
 import Header from "./components/Header";
 import TableForm from "./components/TableForm";
+import ReactToPrint from "react-to-print";
+
 function App() {
   const [showInvoice, setShowInvoice] = useState(false);
-  const [name, setName] = useState("Riyaansh Mittal");
+  const [name, setName] = useState("");
   const [address, setAddress] = useState(
-    "2333/11, Sector 65, Phase 11, Mohali"
+    ""
   );
-  const [email, setEmail] = useState("riyaanshmittal14@gmail.com");
-  const [phone, setPhone] = useState("9410681720");
-  const [bankName, setBankName] = useState("SBI");
-  const [bankAccount, setBankAccount] = useState("7328973892473892");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [bankAccount, setBankAccount] = useState("");
   const [website, setWebsite] = useState(
-    "https://192.168.1.1:8090/httpclient.html"
+    ""
   );
-  const [clientName, setClientName] = useState("John Doe");
-  const [clientAddress, setClientAddress] = useState("johndoe@example.com");
-  const [invoiceNumber, setInvoiceNumber] = useState("1004");
-  const [invoiceDate, setInvoiceDate] = useState("01-02-2024");
-  const [dueDate, setDueDate] = useState("10-03-2024");
-  const [notes, setNotes] = useState("Pay ot the bank account indicated above");
+  const [clientName, setClientName] = useState("");
+  const [clientAddress, setClientAddress] = useState("");
+  const [invoiceNumber, setInvoiceNumber] = useState("");
+  const [invoiceDate, setInvoiceDate] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [notes, setNotes] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
   const [list, setList] = useState([]);
   const [total, setTotal] = useState(0);
+  const componentRef = useRef();
 
   const handlePrint = () => {
     window.print();
   };
   return (
-    <main className="m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl xl:max-w-4xl bg-white rounded shadow">
+    <main
+      className="m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl 
+    xl:max-w-4xl bg-white rounded shadow"
+    >
       {showInvoice ? (
-        <div className="flex flex-col justify-between">
-          <div>
-            <Header handlePrint={handlePrint} />
-
-            <MainDetails name={name} address={address} />
-
-            <ClientDetails
-              clientName={clientName}
-              clientAddress={clientAddress}
-            />
-
-            <Dates
-              invoiceNumber={invoiceNumber}
-              invoiceDate={invoiceDate}
-              dueDate={dueDate}
-            />
-
-            <Table
-              list={list}
-              setList={setList}
-              total={total}
-              setTotal={setTotal}
-            />
-
-            <Notes notes={notes} />
-          </div>
-
-          <Footer
-            name={name}
-            email={email}
-            address={address}
-            website={website}
-            phone={phone}
-            bankAccount={bankAccount}
-            bankName={bankName}
+        <>
+          <ReactToPrint
+            trigger={() => (
+              <button
+                className="bg-blue-500 text-white 
+        font-bold py-2 px-8 rounded shadow 
+        border-2 border-blue-500 
+        hover:bg-transparent hover:text-blue-500 
+        transition-all duration-300"
+              >
+                Print / Download
+              </button>
+            )}
+            content={() => componentRef.current}
           />
+          <div ref={componentRef} className="p-5">
+            <div>
+              <Header handlePrint={handlePrint} />
+
+              <MainDetails name={name} address={address} />
+
+              <ClientDetails
+                clientName={clientName}
+                clientAddress={clientAddress}
+              />
+
+              <Dates
+                invoiceNumber={invoiceNumber}
+                invoiceDate={invoiceDate}
+                dueDate={dueDate}
+              />
+
+              <Table
+                list={list}
+                setList={setList}
+                total={total}
+                setTotal={setTotal}
+              />
+
+              <Notes notes={notes} />
+            </div>
+
+            <Footer
+              name={name}
+              email={email}
+              address={address}
+              website={website}
+              phone={phone}
+              bankAccount={bankAccount}
+              bankName={bankName}
+            />
+          </div>
           <button
             className=" mt-5 bg-blue-500 text-white 
           font-bold py-2 px-8 rounded shadow 
@@ -87,7 +109,7 @@ function App() {
           >
             Edit Information
           </button>
-        </div>
+        </>
       ) : (
         <>
           <div className="flex flex-col justify-center">
