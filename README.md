@@ -1,3 +1,19 @@
+# Invoice Generator
+
+Welcome to Invoice Generator, a web application built using React and TailwindCSS that generates professional invoices based on input provided about the seller, the customer, products, and other details. With Invoice Generator, users can easily create and customize invoices for their business transactions.
+
+## Features
+
+1. **Input Forms**: User-friendly input forms for entering seller details, customer details, product information, and other invoice details.
+2. **Professional Invoice Generation**: Generates professional-looking invoices based on the provided input.
+3. **Download and Print**: Capability to download and print generated invoices for record-keeping and sharing purposes.
+4. **Responsive Design**: Responsive layout ensures optimal viewing and usage experience across devices.
+
+## Tech Stack
+
+- **React**: A JavaScript library for building user interfaces.
+- **TailwindCSS**: A utility-first CSS framework for creating custom designs quickly.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
